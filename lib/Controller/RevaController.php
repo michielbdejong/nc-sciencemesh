@@ -247,56 +247,56 @@ class RevaController extends Controller {
 		$shareeParts = explode("@", $share->getSharedWith());
 		$ownerParts = explode("@", $share->getShareOwner());
 		$creatorParts = explode("@", $share->getSharedBy());
-		$stime = $share->getShareTime()->getTimeStamp();
+		// $stime = $share->getShareTime()->getTimeStamp();
 
 		// produces JSON that maps to
 		// https://github.com/cs3org/reva/blob/v1.18.0/pkg/ocm/share/manager/nextcloud/nextcloud.go#L77
 		// and
 		// https://github.com/cs3org/go-cs3apis/blob/d297419/cs3/sharing/ocm/v1beta1/resources.pb.go#L100
 		return [
-			id => [
+			"id" => [
 				// https://github.com/cs3org/go-cs3apis/blob/d297419/cs3/sharing/ocm/v1beta1/resources.pb.go#L423
-				opaque_id => $share->getId()
+				"opaque_id" => $share->getId()
 			],
-			resource_id => [
-			  opaque_id  => "fileid-" . $share->getNode()->getPath(),
+			"resource_id" => [
+			  "opaque_id"  => "fileid-" . $share->getNode()->getPath(),
 			],
-			permissions => [
-				permissions => [
-					add_grant => false,
-					create_container => false,
-					delete => false,
-					get_path => false,
-					get_quota => false,
-					initiate_file_download => false,
-					initiate_file_upload => false,
+			"permissions" => [
+				"permissions" => [
+					"add_grant" => false,
+					"create_container" => false,
+					"delete" => false,
+					"get_path" => false,
+					"get_quota" => false,
+					"initiate_file_download" => false,
+					"initiate_file_upload" => false,
 				]
 			],
 			// https://github.com/cs3org/go-cs3apis/blob/d29741980082ecd0f70fe10bd2e98cf75764e858/cs3/storage/provider/v1beta1/resources.pb.go#L897
-			grantee => [
-				type => 1, // https://github.com/cs3org/go-cs3apis/blob/d29741980082ecd0f70fe10bd2e98cf75764e858/cs3/storage/provider/v1beta1/resources.pb.go#L135
-			  id => [
-					opaque_id => $shareeParts[0],
-					idp => $shareeParts[1]
+			"grantee" => [
+				"type" => 1, // https://github.com/cs3org/go-cs3apis/blob/d29741980082ecd0f70fe10bd2e98cf75764e858/cs3/storage/provider/v1beta1/resources.pb.go#L135
+			  "id" => [
+					"opaque_id" => $shareeParts[0],
+					"idp" => $shareeParts[1]
 			  ],
 			],
-			owner => [
-			  id => [
-					opaque_id => $ownerParts[0],
-					idp => $ownerParts[1]
+			"owner" => [
+			  "id" => [
+					"opaque_id" => $ownerParts[0],
+					"idp" => $ownerParts[1]
 			  ],
 			],
-			creator => [
-				id => [
-					opaque_id => $creatorParts[0],
-					idp => $creatorParts[1]
+			"creator" => [
+				"id" => [
+					"opaque_id" => $creatorParts[0],
+					"idp" => $creatorParts[1]
 			  ],
 			],
-			ctime => [
-				seconds => $stime
+			"ctime" => [
+				"seconds" => $stime
 			],
-			mtime => [
-				seconds => $stime
+			"mtime" => [
+				"seconds" => $stime
 			]
 		];
 	}
